@@ -1,44 +1,42 @@
-body {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+let score = 0;
+let playerName = prompt("Введите ваше имя:") || "Игрок";
+let tournamentData = [];
+
+// Функция для создания круга в случайном месте
+function createCircle() {
+    const circle = document.getElementById('circle');
+    circle.style.top = Math.random() * (document.getElementById('game').clientHeight - 50) + 'px';
+    circle.style.left = Math.random() * (document.getElementById('game').clientWidth - 50) + 'px';
 }
 
-#game {
-    position: relative;
-    height: 400px;
-    border: 2px solid #333;
-    overflow: hidden;
-    margin: 20px auto;
+// Обработчик клика по кругу
+document.getElementById('circle').addEventListener('click', () => {
+    score++;
+    document.getElementById('score').innerText = 'Очки: ' + score;
+    createCircle();
+});
+
+// Отображение турнира
+document.getElementById('tournamentBtn').addEventListener('click', () => {
+    document.getElementById('tournament').classList.remove('hidden');
+    updateTournamentList();
+});
+
+// Закрытие турнира
+document.getElementById('closeTournamentBtn').addEventListener('click', () => {
+    document.getElementById('tournament').classList.add('hidden');
+});
+
+// Обновление таблицы турнира
+function updateTournamentList() {
+    const tournamentList = document.getElementById('tournamentList');
+    tournamentList.innerHTML = ''; // Очистка списка
+    tournamentData.push({ name: playerName, score: score }); // Добавление игрока
+    tournamentData.sort((a, b) => b.score - a.score); // Сортировка по очкам
+    tournamentData.forEach((player, index) => {
+        tournamentList.innerHTML += `<p>${index + 1}. ${player.name} - ${player.score} очков</p>`;
+    });
 }
 
-.circle {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: red;
-    cursor: pointer;
-}
-
-#score {
-    margin-top: 20px;
-    font-size: 24px;
-}
-
-.hidden {
-    display: none;
-}
-
-#tournament {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #333;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px;
-    font-size: 16px;
-}
+// Создаем первый круг
+createCircle();
