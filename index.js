@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 
 // Укажите ваш токен бота
-const token = '7572082955:AAHBY1VgVh1adY3jQgdPQWBbKiEmwD4-qa0';
+const token = '7275882021:AAFRiw3zU1o2DPNBcFMmhxefqAhE8vzeOkw';
 const bot = new TelegramBot(token, { polling: true });
 
 // Инициализация данных для игры
